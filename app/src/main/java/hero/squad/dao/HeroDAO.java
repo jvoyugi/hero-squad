@@ -12,10 +12,6 @@ public interface HeroDAO {
 
     // READ
     Hero findById(int id);
-
-     //UPDATE
-     void update(int id, String content, int categoryId);
-
      //DELETE
      void deleteById(int id);
      void clearAllHeroes();

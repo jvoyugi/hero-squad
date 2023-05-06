@@ -7,14 +7,7 @@ import static spark.Spark.*;
 
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
-import org.sql2o.Connection;
-import org.sql2o.Query;
-import org.sql2o.ResultSetIterable;
 import org.sql2o.Sql2o;
-import org.sql2o.data.Row;
-import org.sql2o.data.Table;
-
-import hero.squad.dao.HeroDAO;
 import hero.squad.dao.Sql2oHeroDAO;
 import hero.squad.models.Hero;
 

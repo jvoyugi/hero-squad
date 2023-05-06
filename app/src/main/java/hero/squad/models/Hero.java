@@ -1,5 +1,4 @@
 package hero.squad.models;
-import java.util.Objects;
 
 
 public class Hero {
