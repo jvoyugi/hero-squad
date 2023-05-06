@@ -1,0 +1,8 @@
+{{#partial "heroes"}}
+    {{#each heroes}}
+        <p>
+            <a href="/heroes/{{id}}">{{name}}</a>
+        </p>
+    {{/each}}
+{{/partial}}
+{{> layout.hbs}}
