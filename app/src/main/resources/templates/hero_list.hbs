@@ -1,8 +1,25 @@
 {{#partial "heroes"}}
-    {{#each heroes}}
-        <p>
-            <a href="/heroes/{{id}}">{{name}}</a>
-        </p>
-    {{/each}}
+    <table class="table table-light table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Powers</th>
+                <th>Weakness</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#if heroes}}
+            {{#each heroes}}
+                <tr>
+                    <td>{{name}}</td>
+                    <td>{{specialPower}}</td>
+                    <td>{{weakness}}</td>
+                    <td>{{age}}</td>
+                </tr>
+            {{/each}}
+        {{/if}}
+        </tbody>
+    </table>
 {{/partial}}
 {{> layout.hbs}}

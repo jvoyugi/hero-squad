@@ -23,13 +23,11 @@ public class App {
     public static void main(String[] args) {
         Sql2o sql2o = new Sql2o(connectionString, "postgres", "Logger33");
         Sql2oHeroDAO heroDAO = new Sql2oHeroDAO(sql2o);
+        port(8000);
 
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            List<Hero> heroes = new ArrayList<>();
-            for (int i = 0; i < 10; i++) {
-                heroes.add(new Hero("Superman",20, "Flight", "Kryptonite"));
-            }
+            List<Hero> heroes = heroDAO.getAll();
             model.put("heroes", heroes);
             return new ModelAndView(model, "hero_list.hbs");
         }, new HandlebarsTemplateEngine());
