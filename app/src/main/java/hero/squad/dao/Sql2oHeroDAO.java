@@ -29,7 +29,7 @@ public class Sql2oHeroDAO implements HeroDAO {
 
     @Override
     public void update(Hero hero) {
-        String sql = "UPDATE heroes SET name=:name, age=:age, specialPowers=:specialPowers, weakness=:weakness, squad_id=squadId WHERE id=:id";
+        String sql = "UPDATE heroes SET (name, age, special_power, weakness, squad_id) = (:name, :age, :specialPower, :weakness, :squadId) WHERE id=:id";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql, false)
                     .bind(hero)

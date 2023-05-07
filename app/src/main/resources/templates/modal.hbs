@@ -5,7 +5,7 @@
                 <h1 class="modal-title fs-5" id="newHeroModalLabel">Register Hero</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" action="{{url}}">
+            <form method="{{method}}" action="{{url}}">
                 <div class="modal-body">
                     {{#block "formContent"}}
                     {{/block}}
