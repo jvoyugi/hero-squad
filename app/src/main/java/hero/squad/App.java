@@ -11,7 +11,6 @@ import org.sql2o.Sql2o;
 import hero.squad.dao.Sql2oHeroDAO;
 import hero.squad.models.Hero;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,14 +24,16 @@ public class App {
         Sql2oHeroDAO heroDAO = new Sql2oHeroDAO(sql2o);
         port(8000);
 
-        get("/", (req, res) -> {
+        get("/heroes", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             List<Hero> heroes = heroDAO.getAll();
+            model.put("url", "/heroes");
+            model.put("title", "Heroes");
             model.put("heroes", heroes);
-            return new ModelAndView(model, "hero_list.hbs");
+            return new ModelAndView(model, "heroes.hbs");
         }, new HandlebarsTemplateEngine());
 
-        post("/hero", (req, res) -> {
+        post("/heroes", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             String name = req.queryParams("name");
             Integer age = Integer.parseInt(req.queryParams("age"));
@@ -40,7 +41,7 @@ public class App {
             String weakness = req.queryParams("weakness");
             Hero newHero = new Hero(name, age, specialPower, weakness);
             heroDAO.add(newHero);
-            res.redirect("/hero");
+            res.redirect("/heroes");
             return null;
         }, new HandlebarsTemplateEngine());
     }
