@@ -57,4 +57,11 @@ public class Hero {
         this.weakness = weakness;
     }
 
+    public String getSquadId() {
+        return squadId;
+    }
+
+    public void setSquadId(String squadId) {
+        this.squadId = squadId;
+    }
 }

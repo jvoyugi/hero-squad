@@ -1,0 +1,11 @@
+{{#partial "formContent"}}
+    <label for="name" class="form-label">Name</label>
+    <input type="text" id="name" name="name" value="{{name}}" class="form-control" required>
+    <label for="age" class="form-label">Age</label>
+    <input type="number" id="age" name="age" value="{{age}}" class="form-control" required>
+    <label for="special_power" class="form-label">Special Powers</label>
+    <input type="text" id="special_power" name="special_power" value="{{specialPower}}" class="form-control" required>
+    <label for="weakness" class="form-label">Weakness</label>
+    <input type="text" id="weakness" name="weakness" value="{{weakness}}" class="form-control" required>
+{{/partial}}
+{{> modal.hbs}}

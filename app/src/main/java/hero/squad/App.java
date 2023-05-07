@@ -27,7 +27,7 @@ public class App {
         get("/hero", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             List<Hero> heroes = heroDAO.getAll();
-            model.put("url", "/hero");
+            model.put("url", req.matchedPath());
             model.put("title", "Heroes");
             model.put("heroes", heroes);
             return new ModelAndView(model, "heroes.hbs");
@@ -37,7 +37,23 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             Integer id = Integer.parseInt(req.params("id"));
             Hero hero = heroDAO.findById(id);
-            model.put("url", "/hero");
+            model.put("url", "/hero/" + id);
+            model.put("title", hero.getName());
+            model.put("hero", hero);
+            return new ModelAndView(model, "hero.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/hero/:id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            Integer id = Integer.parseInt(req.params("id"));
+            Hero hero = heroDAO.findById(id);
+            hero.setAge(Integer.parseInt(req.queryParams("age")));
+            hero.setSpecialPower(req.queryParams("special_power"));
+            hero.setWeakness(req.queryParams("weakness"));
+            hero.setSquadId(req.queryParams("squad_id"));
+            hero.setName(req.queryParams("name"));
+            heroDAO.update(hero);
+            model.put("url", "/hero/" + id);
             model.put("title", hero.getName());
             model.put("hero", hero);
             return new ModelAndView(model, "hero.hbs");
