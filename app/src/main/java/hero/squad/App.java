@@ -24,21 +24,32 @@ public class App {
         Sql2oHeroDAO heroDAO = new Sql2oHeroDAO(sql2o);
         port(8000);
 
-        get("/heroes", (req, res) -> {
+        get("/hero", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             List<Hero> heroes = heroDAO.getAll();
-            model.put("url", "/heroes");
+            model.put("url", "/hero");
             model.put("title", "Heroes");
             model.put("heroes", heroes);
             return new ModelAndView(model, "heroes.hbs");
         }, new HandlebarsTemplateEngine());
 
-        post("/heroes", (req, res) -> {
+        get("/hero/:id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            Integer id = Integer.parseInt(req.params("id"));
+            Hero hero = heroDAO.findById(id);
+            model.put("url", "/hero");
+            model.put("title", hero.getName());
+            model.put("hero", hero);
+            return new ModelAndView(model, "hero.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/hero", (req, res) -> {
             String name = req.queryParams("name");
             Integer age = Integer.parseInt(req.queryParams("age"));
             String specialPower = req.queryParams("special_power");
             String weakness = req.queryParams("weakness");
-            Hero newHero = new Hero(name, age, specialPower, weakness);
+            String squadId = req.queryParams("squad_id");
+            Hero newHero = new Hero(name, age, specialPower, weakness, squadId);
             heroDAO.add(newHero);
             res.redirect("/heroes");
             return null;

@@ -1,0 +1,14 @@
+{{#partial "content"}}
+    {{#with hero}}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{name}}, {{age}}</h5>
+                <br/> Abilities: {{specialPower}}
+                <br/> Weaknesses: {{weakness}}
+                <br/>
+                <a href="#" class="card-link">Another link</a>
+            </div>
+        </div>
+    {{/with}}
+{{/partial}}
+{{> layout.hbs}}

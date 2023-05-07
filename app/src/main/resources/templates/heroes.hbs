@@ -23,7 +23,9 @@
         {{#if heroes}}
             {{#each heroes}}
                 <tr>
-                    <td>{{name}}</td>
+                    <td>
+                        <a href="/hero/{{id}}">{{name}}</a>
+                    </td>
                     <td>{{specialPower}}</td>
                     <td>{{weakness}}</td>
                     <td>{{age}}</td>

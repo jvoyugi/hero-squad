@@ -7,12 +7,14 @@ public class Hero {
     String specialPower;
     String weakness;
     Integer id;
+    String squadId;
 
-    public Hero(String name, Integer age, String specialPower, String weakness) {
+    public Hero(String name, Integer age, String specialPower, String weakness, String squadId) {
         this.name = name;
         this.age = age;
         this.specialPower = specialPower;
         this.weakness = weakness;
+        this.squadId = squadId;
     }
 
     public Integer getId() {

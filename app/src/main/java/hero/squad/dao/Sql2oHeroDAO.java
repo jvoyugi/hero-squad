@@ -17,7 +17,7 @@ public class Sql2oHeroDAO implements HeroDAO {
 
     @Override
     public void add(Hero hero) {
-        String sql = "INSERT INTO heroes (name, age, special_power,weakness) VALUES (:name, :age, :specialPower, :weakness)";
+        String sql = "INSERT INTO heroes (name, age, special_power,weakness, squad_id) VALUES (:name, :age, :specialPower, :weakness, :squad_id)";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql, false)
                     .bind(hero)
@@ -31,7 +31,8 @@ public class Sql2oHeroDAO implements HeroDAO {
     public List<Hero> getAll() {
         try (Connection con = sql2o.open()) {
             return con.createQuery("SELECT * FROM heroes")
-            .addColumnMapping("special_power", "specialPower")
+                    .addColumnMapping("special_power", "specialPower")
+                    .addColumnMapping("squad_id", "squadId")
                     .executeAndFetch(Hero.class);
         }
     }
@@ -41,6 +42,8 @@ public class Sql2oHeroDAO implements HeroDAO {
         try (Connection con = sql2o.open()) {
             return con.createQuery("SELECT * FROM heroes WHERE id = :id")
                     .addParameter("id", id)
+                    .addColumnMapping("special_power", "specialPower")
+                    .addColumnMapping("squad_id", "squadId")
                     .executeAndFetchFirst(Hero.class);
         }
     }
