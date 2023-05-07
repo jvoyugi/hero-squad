@@ -1,6 +1,5 @@
 package hero.squad.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.sql2o.Connection;
@@ -10,7 +9,7 @@ import org.sql2o.Sql2oException;
 import hero.squad.models.Hero;
 
 public class Sql2oHeroDAO implements HeroDAO {
-    private Sql2o sql2o;
+    private final Sql2o sql2o;
 
     public Sql2oHeroDAO(Sql2o sql2o) {
         this.sql2o = sql2o;

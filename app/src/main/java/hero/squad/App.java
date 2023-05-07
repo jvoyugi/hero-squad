@@ -34,7 +34,6 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         post("/heroes", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
             String name = req.queryParams("name");
             Integer age = Integer.parseInt(req.queryParams("age"));
             String specialPower = req.queryParams("special_power");
