@@ -5,6 +5,8 @@ package hero.squad;
 
 import static spark.Spark.*;
 
+import hero.squad.dao.Sql2oSquadDAO;
+import hero.squad.models.Squad;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import org.sql2o.Sql2o;
@@ -17,12 +19,23 @@ import java.util.Map;
 
 public class App {
 
-    private static final String connectionString = "jdbc:postgresql://localhost:5432/herodb";
+    private static final String connectionString = "jdbc:postgresql://localhost:5432/hero_db";
 
     public static void main(String[] args) {
         Sql2o sql2o = new Sql2o(connectionString, "postgres", "Logger33");
         Sql2oHeroDAO heroDAO = new Sql2oHeroDAO(sql2o);
+        Sql2oSquadDAO squadDAO = new Sql2oSquadDAO(sql2o);
         port(8000);
+
+        get("/", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Squad> squads = squadDAO.getAll();
+            model.put("url", "/");
+            model.put("action", "Register");
+            model.put("title", "Squads");
+            model.put("squads", squads);
+            return new ModelAndView(model, "squads.hbs");
+        }, new HandlebarsTemplateEngine());
 
         get("/hero", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
