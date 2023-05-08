@@ -141,8 +141,8 @@ public class App {
             Integer age = Integer.parseInt(req.queryParams("age"));
             String specialPower = req.queryParams("special_power");
             String weakness = req.queryParams("weakness");
-            Integer squadId = Integer.parseInt(req.queryParams("squad_id"));
-            Hero newHero = new Hero(name, age, specialPower, weakness, squadId);
+            String squadId = req.queryParams("squad_id");
+            Hero newHero = new Hero(name, age, specialPower, weakness, squadId==null ? null : Integer.parseInt(squadId));
             heroDAO.add(newHero);
             res.redirect("/hero");
             return null;
