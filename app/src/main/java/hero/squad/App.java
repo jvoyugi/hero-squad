@@ -13,16 +13,17 @@ import org.sql2o.Sql2o;
 import hero.squad.dao.Sql2oHeroDAO;
 import hero.squad.models.Hero;
 
+import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class App {
 
-    private static final String connectionString = "jdbc:" + System.getenv("DATABASE_URL");
+    private static String databaseUrl = System.getenv("DATABASE_URL");
+
     public static void main(String[] args) {
-        System.out.println(connectionString);
-        Sql2o sql2o = new Sql2o(connectionString);
+        Sql2o sql2o = new Sql2o("jdbc:" + databaseUrl.replaceAll("postgres:", "postgresql:"));
         Sql2oHeroDAO heroDAO = new Sql2oHeroDAO(sql2o);
         Sql2oSquadDAO squadDAO = new Sql2oSquadDAO(sql2o);
         String port = System.getenv("PORT");
