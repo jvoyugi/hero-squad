@@ -28,7 +28,7 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             List<Hero> heroes = heroDAO.getAll();
             model.put("url", "/hero");
-            model.put("method", "post");
+            model.put("action", "Register");
             model.put("title", "Heroes");
             model.put("heroes", heroes);
             return new ModelAndView(model, "heroes.hbs");
@@ -40,13 +40,14 @@ public class App {
             Hero hero = heroDAO.findById(id);
             model.put("url", "/hero/" + id);
             model.put("title", hero.getName());
-            model.put("method", "post");
+            model.put("action", "Update");
             model.put("hero", hero);
             return new ModelAndView(model, "hero.hbs");
         }, new HandlebarsTemplateEngine());
 
         post("/hero/:id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
+
             Integer id = Integer.parseInt(req.params("id"));
             Hero hero = heroDAO.findById(id);
             hero.setAge(Integer.parseInt(req.queryParams("age")));
@@ -59,6 +60,15 @@ public class App {
             model.put("title", hero.getName());
             model.put("hero", hero);
             res.redirect("/hero/" + id);
+            return null;
+        }, new HandlebarsTemplateEngine());
+
+        post("/hero/:id/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            Integer id = Integer.parseInt(req.params("id"));
+            heroDAO.deleteById(id);
+            model.put("url", "/hero/" + id);
+            res.redirect("/hero");
             return null;
         }, new HandlebarsTemplateEngine());
 

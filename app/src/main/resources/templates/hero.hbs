@@ -6,15 +6,19 @@
                 <br/> Abilities: {{specialPower}}
                 <br/> Weaknesses: {{weakness}}
                 <br/>
-                <div class="col fw-bold">
-                    <div class="d-grid gap-2 d-md-flex m-2 justify-content-md-end">
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                                data-bs-target="#newHeroModal">
-                            Update Hero
-                        </button>
-                    </div>
-                    {{> update_hero.hbs}}
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#newHeroModal">
+                        Update Hero
+                    </button>
+
+                    <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#deleteHeroModal">
+                        Remove Hero
+                    </button>
                 </div>
+                {{> update_hero.hbs}}
+                {{> delete_hero.hbs}}
             </div>
         </div>
     {{/with}}
