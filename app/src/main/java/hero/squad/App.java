@@ -22,6 +22,7 @@ public class App {
     private static final String connectionString = System.getenv("DATABASE_URL");
 
     public static void main(String[] args) {
+        System.out.println(connectionString);
         Sql2o sql2o = new Sql2o(connectionString);
         Sql2oHeroDAO heroDAO = new Sql2oHeroDAO(sql2o);
         Sql2oSquadDAO squadDAO = new Sql2oSquadDAO(sql2o);
