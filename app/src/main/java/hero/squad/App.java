@@ -36,7 +36,7 @@ public class App {
 
         get("/hero/:id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            Integer id = Integer.parseInt(req.params("id"));
+            int id = Integer.parseInt(req.params("id"));
             Hero hero = heroDAO.findById(id);
             model.put("url", "/hero/" + id);
             model.put("title", hero.getName());
@@ -46,8 +46,7 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         post("/hero/:id", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            Integer id = Integer.parseInt(req.params("id"));
+            int id = Integer.parseInt(req.params("id"));
             Hero hero = heroDAO.findById(id);
             hero.setAge(Integer.parseInt(req.queryParams("age")));
             hero.setSpecialPower(req.queryParams("special_power"));
@@ -55,18 +54,13 @@ public class App {
             hero.setSquadId(req.queryParams("squad_id"));
             hero.setName(req.queryParams("name"));
             heroDAO.update(hero);
-            model.put("url", "/hero/" + id);
-            model.put("title", hero.getName());
-            model.put("hero", hero);
             res.redirect("/hero/" + id);
             return null;
         }, new HandlebarsTemplateEngine());
 
         post("/hero/:id/delete", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            Integer id = Integer.parseInt(req.params("id"));
+            int id = Integer.parseInt(req.params("id"));
             heroDAO.deleteById(id);
-            model.put("url", "/hero/" + id);
             res.redirect("/hero");
             return null;
         }, new HandlebarsTemplateEngine());
