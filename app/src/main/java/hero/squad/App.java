@@ -13,16 +13,15 @@ import org.sql2o.Sql2o;
 import hero.squad.dao.Sql2oHeroDAO;
 import hero.squad.models.Hero;
 
-import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class App {
 
-    private static String databaseUrl = System.getenv("JDBC_DATABASE_URL");
-    private static String databaseUsername = System.getenv("JDBC_DATABASE_USERNAME");
-    private static String databasePassword = System.getenv("JDBC_DATABASE_PASSWORD");
+    private static final String databaseUrl = System.getenv("JDBC_DATABASE_URL");
+    private static final String databaseUsername = System.getenv("JDBC_DATABASE_USERNAME");
+    private static final String databasePassword = System.getenv("JDBC_DATABASE_PASSWORD");
 
     public static void main(String[] args) {
         Sql2o sql2o = new Sql2o(databaseUrl,databaseUsername,databasePassword);
@@ -118,11 +117,12 @@ public class App {
 
         post("/hero/:id", (req, res) -> {
             int id = Integer.parseInt(req.params("id"));
+            String squadId = req.queryParams("squad_id");
             Hero hero = heroDAO.findById(id);
             hero.setAge(Integer.parseInt(req.queryParams("age")));
             hero.setSpecialPower(req.queryParams("special_power"));
             hero.setWeakness(req.queryParams("weakness"));
-            hero.setSquadId(Integer.parseInt(req.queryParams("squad_id")));
+            hero.setSquadId(squadId==null ? null : Integer.parseInt(squadId));
             hero.setName(req.queryParams("name"));
             heroDAO.update(hero);
             res.redirect("/hero/" + id);
