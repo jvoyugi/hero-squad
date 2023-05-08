@@ -10,7 +10,6 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
-    id 'java'
 }
 
 repositories {
@@ -43,5 +42,10 @@ tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }
+jar {
+    archiveBaseName = 'hero-squad'
+    archiveVersion =  '0.1.0'
+}
+
 
 task stage(dependsOn: ['build', 'clean'])
