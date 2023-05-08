@@ -36,8 +36,15 @@ public class Sql2oSquadDAO implements SquadDAO{
     }
 
     @Override
-    public void update(Squad hero) {
-
+    public void update(Squad squad) {
+        String sql = "UPDATE squads SET (name, role) = (:name, :role) WHERE id=:id";
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql, false)
+                    .bind(squad)
+                    .executeUpdate();
+        } catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
     }
 
     @Override

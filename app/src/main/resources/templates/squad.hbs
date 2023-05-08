@@ -6,6 +6,18 @@
                 <div class="card-text">
                     {{role}}
                 </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#newSquadModal">
+                        Update Squad
+                    </button>
+
+                    <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#deleteSquadModal">
+                        Remove Squad
+                    </button>
+                    {{> update_squad.hbs}}
+                </div>
             </div>
         </div>
     {{/with}}
