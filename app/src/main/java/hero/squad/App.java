@@ -47,7 +47,6 @@ public class App {
 
         post("/hero/:id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-
             Integer id = Integer.parseInt(req.params("id"));
             Hero hero = heroDAO.findById(id);
             hero.setAge(Integer.parseInt(req.queryParams("age")));
