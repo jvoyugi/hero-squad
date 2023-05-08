@@ -38,7 +38,6 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         post("/", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
             String name = req.queryParams("name");
             String role = req.queryParams("role");
             Squad squad = new Squad(name, role);
@@ -61,7 +60,6 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         post("/squads/:id", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params("id"));
             Squad squad = squadDAO.findById(id);
             squad.setName(req.queryParams("name"));
@@ -72,7 +70,6 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         post("/squads/:id", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params("id"));
             Squad squad = squadDAO.findById(id);
             squad.setName(req.queryParams("name"));
