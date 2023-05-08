@@ -1,5 +1,6 @@
 package hero.squad.dao;
 
+import hero.squad.models.Hero;
 import hero.squad.models.Squad;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -41,7 +42,11 @@ public class Sql2oSquadDAO implements SquadDAO{
 
     @Override
     public Squad findById(int id) {
-        return null;
+        try (Connection con = sql2o.open()) {
+            return con.createQuery("SELECT * FROM squads WHERE id = :id")
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(Squad.class);
+        }
     }
 
     @Override
