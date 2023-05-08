@@ -6,7 +6,6 @@ package hero.squad;
 import static spark.Spark.*;
 
 import hero.squad.dao.Sql2oSquadDAO;
-import hero.squad.dao.SquadDAO;
 import hero.squad.models.Squad;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;

@@ -1,6 +1,5 @@
 package hero.squad.dao;
 
-import hero.squad.models.Hero;
 import hero.squad.models.Squad;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;

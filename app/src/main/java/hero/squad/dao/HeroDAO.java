@@ -3,7 +3,6 @@ package hero.squad.dao;
 import java.util.List;
 
 import hero.squad.models.Hero;
-import hero.squad.models.Squad;
 
 public interface HeroDAO {
     List<Hero> getAll();
