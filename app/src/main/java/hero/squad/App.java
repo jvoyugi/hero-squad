@@ -26,7 +26,7 @@ public class App {
         Sql2oHeroDAO heroDAO = new Sql2oHeroDAO(sql2o);
         Sql2oSquadDAO squadDAO = new Sql2oSquadDAO(sql2o);
         String port = System.getenv("PORT");
-        port(port == null ? 8000 : Integer.valueOf(port));
+        port(port == null ? 8000 : Integer.parseInt(port));
 
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
