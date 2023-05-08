@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class App {
 
-    private static final String connectionString = "jdbc:postgresql://" + System.getenv("DATABASE_URL") + ":5432/hero_db";
+    private static final String connectionString = System.getenv("DATABASE_URL");
 
     public static void main(String[] args) {
         Sql2o sql2o = new Sql2o(connectionString, "postgres", "Logger33");
