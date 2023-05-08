@@ -20,10 +20,12 @@ import java.util.Map;
 
 public class App {
 
-    private static String databaseUrl = System.getenv("DATABASE_URL");
+    private static String databaseUrl = System.getenv("JDBC_DATABASE_URL");
+    private static String databaseUsername = System.getenv("JDBC_DATABASE_USERNAME");
+    private static String databasePassword = System.getenv("JDBC_DATABASE_PASSWORD");
 
     public static void main(String[] args) {
-        Sql2o sql2o = new Sql2o("jdbc:" + databaseUrl.replaceAll("postgres:", "postgresql:"));
+        Sql2o sql2o = new Sql2o(databaseUrl,databaseUsername,databasePassword);
         Sql2oHeroDAO heroDAO = new Sql2oHeroDAO(sql2o);
         Sql2oSquadDAO squadDAO = new Sql2oSquadDAO(sql2o);
         String port = System.getenv("PORT");
