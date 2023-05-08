@@ -25,7 +25,8 @@ public class App {
         Sql2o sql2o = new Sql2o(connectionString, "postgres", "Logger33");
         Sql2oHeroDAO heroDAO = new Sql2oHeroDAO(sql2o);
         Sql2oSquadDAO squadDAO = new Sql2oSquadDAO(sql2o);
-        port(8000);
+        String port = System.getenv("PORT");
+        port(port == null ? 8000 : Integer.valueOf(port));
 
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
