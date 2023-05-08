@@ -122,7 +122,7 @@ public class App {
             hero.setAge(Integer.parseInt(req.queryParams("age")));
             hero.setSpecialPower(req.queryParams("special_power"));
             hero.setWeakness(req.queryParams("weakness"));
-            hero.setSquadId(req.queryParams("squad_id"));
+            hero.setSquadId(Integer.parseInt(req.queryParams("squad_id")));
             hero.setName(req.queryParams("name"));
             heroDAO.update(hero);
             res.redirect("/hero/" + id);
@@ -141,7 +141,7 @@ public class App {
             Integer age = Integer.parseInt(req.queryParams("age"));
             String specialPower = req.queryParams("special_power");
             String weakness = req.queryParams("weakness");
-            String squadId = req.queryParams("squad_id");
+            Integer squadId = Integer.parseInt(req.queryParams("squad_id"));
             Hero newHero = new Hero(name, age, specialPower, weakness, squadId);
             heroDAO.add(newHero);
             res.redirect("/hero");
