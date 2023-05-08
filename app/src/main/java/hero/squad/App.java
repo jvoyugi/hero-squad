@@ -6,6 +6,7 @@ package hero.squad;
 import static spark.Spark.*;
 
 import hero.squad.dao.Sql2oSquadDAO;
+import hero.squad.dao.SquadDAO;
 import hero.squad.models.Squad;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -35,6 +36,16 @@ public class App {
             model.put("title", "Squads");
             model.put("squads", squads);
             return new ModelAndView(model, "squads.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            String name = req.queryParams("name");
+            String role = req.queryParams("role");
+            Squad squad = new Squad(name, role);
+            squadDAO.add(squad);
+            res.redirect("/");
+            return null;
         }, new HandlebarsTemplateEngine());
 
         get("/hero", (req, res) -> {

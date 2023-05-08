@@ -4,6 +4,14 @@ public class Squad {
     String name;
     String role;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     Integer id;
 
     public Squad(String name, String role) {
