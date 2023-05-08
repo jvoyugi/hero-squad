@@ -67,9 +67,4 @@ public class Sql2oSquadDAO implements SquadDAO{
             System.out.println(ex);
         }
     }
-
-    @Override
-    public void clearAllSquads() {
-
-    }
 }

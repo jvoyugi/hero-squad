@@ -49,6 +49,8 @@ public class Sql2oHeroDAO implements HeroDAO {
         }
     }
 
+
+
     @Override
     public Hero findById(int id) {
         try (Connection con = sql2o.open()) {
@@ -73,13 +75,12 @@ public class Sql2oHeroDAO implements HeroDAO {
     }
 
     @Override
-    public void clearAllHeroes() {
-        String sql = "DELETE from heroes";
+    public List<Hero> getHeroesBySquad(int squadId) {
         try (Connection con = sql2o.open()) {
-            con.createQuery(sql)
-                    .executeUpdate();
-        } catch (Sql2oException ex) {
-            System.out.println(ex);
-        }
-    }
+            return con.createQuery("SELECT * FROM heroes WHERE squad_id = :squadId")
+                    .addParameter("squadId", squadId)
+                    .addColumnMapping("special_power", "specialPower")
+                    .addColumnMapping("squad_id", "squadId")
+                    .executeAndFetch(Hero.class);
+        }    }
 }

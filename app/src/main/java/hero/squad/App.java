@@ -48,40 +48,42 @@ public class App {
             return null;
         }, new HandlebarsTemplateEngine());
 
-        get("/:id", (req, res) -> {
+        get("/squads/:id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params("id"));
             Squad squad = squadDAO.findById(id);
-            model.put("url", "/" + id);
+            List<Hero> heroes = heroDAO.getHeroesBySquad(id);
+            model.put("url", "/squads/" + id);
             model.put("title", squad.getName());
             model.put("action", "Update");
             model.put("squad", squad);
+            model.put("heroes",heroes);
             return new ModelAndView(model, "squad.hbs");
         }, new HandlebarsTemplateEngine());
 
-        post("/:id", (req, res) -> {
+        post("/squads/:id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params("id"));
             Squad squad = squadDAO.findById(id);
             squad.setName(req.queryParams("name"));
             squad.setRole(req.queryParams("role"));
             squadDAO.update(squad);
-            res.redirect("/"+id);
+            res.redirect("/squads/"+id);
             return null;
         }, new HandlebarsTemplateEngine());
 
-        post("/:id", (req, res) -> {
+        post("/squads/:id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params("id"));
             Squad squad = squadDAO.findById(id);
             squad.setName(req.queryParams("name"));
             squad.setRole(req.queryParams("role"));
             squadDAO.update(squad);
-            res.redirect("/"+id);
+            res.redirect("/squads/"+id);
             return null;
         }, new HandlebarsTemplateEngine());
 
-        post("/:id/delete", (req, res) -> {
+        post("/squads/:id/delete", (req, res) -> {
             int id = Integer.parseInt(req.params("id"));
             squadDAO.deleteById(id);
             res.redirect("/");
@@ -89,12 +91,15 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         get("/hero", (req, res) -> {
+
             Map<String, Object> model = new HashMap<>();
             List<Hero> heroes = heroDAO.getAll();
+//            List<Squad> squads = squadDAO.getAll();
             model.put("url", "/hero");
             model.put("action", "Register");
             model.put("title", "Heroes");
             model.put("heroes", heroes);
+//            model.put("squads", squads);
             return new ModelAndView(model, "heroes.hbs");
         }, new HandlebarsTemplateEngine());
 
