@@ -58,7 +58,14 @@ public class Sql2oSquadDAO implements SquadDAO{
 
     @Override
     public void deleteById(int id) {
-
+        String sql = "UPDATE heroes set squad_id=NULL where squad_id=:id;DELETE from squads WHERE id=:id";
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        } catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
     }
 
     @Override

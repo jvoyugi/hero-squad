@@ -70,6 +70,24 @@ public class App {
             return null;
         }, new HandlebarsTemplateEngine());
 
+        post("/:id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int id = Integer.parseInt(req.params("id"));
+            Squad squad = squadDAO.findById(id);
+            squad.setName(req.queryParams("name"));
+            squad.setRole(req.queryParams("role"));
+            squadDAO.update(squad);
+            res.redirect("/"+id);
+            return null;
+        }, new HandlebarsTemplateEngine());
+
+        post("/:id/delete", (req, res) -> {
+            int id = Integer.parseInt(req.params("id"));
+            squadDAO.deleteById(id);
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
+
         get("/hero", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             List<Hero> heroes = heroDAO.getAll();
