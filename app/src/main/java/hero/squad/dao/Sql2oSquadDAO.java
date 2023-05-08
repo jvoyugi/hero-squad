@@ -1,10 +1,12 @@
 package hero.squad.dao;
 
 import hero.squad.models.Squad;
+import org.eclipse.jetty.server.SymlinkAllowedResourceAliasChecker;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sql2oSquadDAO implements SquadDAO{
@@ -19,7 +21,10 @@ public class Sql2oSquadDAO implements SquadDAO{
         try (Connection con = sql2o.open()) {
             return con.createQuery("SELECT * FROM squads")
                     .executeAndFetch(Squad.class);
+        }catch (Sql2oException e) {
+            e.printStackTrace();
         }
+        return new ArrayList<>();
     }
 
     @Override

@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class App {
 
-    private static final String connectionString = "jdbc:postgresql://localhost:5432/hero_db";
+    private static final String connectionString = "jdbc:postgresql://" + System.getenv("DATABASE_URL") + ":5432/hero_db";
 
     public static void main(String[] args) {
         Sql2o sql2o = new Sql2o(connectionString, "postgres", "Logger33");
@@ -30,10 +30,12 @@ public class App {
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             List<Squad> squads = squadDAO.getAll();
+            System.out.println(req.pathInfo());
             model.put("url", "/");
             model.put("action", "Register");
             model.put("title", "Squads");
             model.put("squads", squads);
+
             return new ModelAndView(model, "squads.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -55,7 +57,7 @@ public class App {
             model.put("title", squad.getName());
             model.put("action", "Update");
             model.put("squad", squad);
-            model.put("heroes",heroes);
+            model.put("heroes", heroes);
             return new ModelAndView(model, "squad.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -65,7 +67,7 @@ public class App {
             squad.setName(req.queryParams("name"));
             squad.setRole(req.queryParams("role"));
             squadDAO.update(squad);
-            res.redirect("/squads/"+id);
+            res.redirect("/squads/" + id);
             return null;
         }, new HandlebarsTemplateEngine());
 
@@ -75,7 +77,7 @@ public class App {
             squad.setName(req.queryParams("name"));
             squad.setRole(req.queryParams("role"));
             squadDAO.update(squad);
-            res.redirect("/squads/"+id);
+            res.redirect("/squads/" + id);
             return null;
         }, new HandlebarsTemplateEngine());
 
