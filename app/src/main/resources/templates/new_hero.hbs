@@ -8,7 +8,7 @@
     <label for="weakness" class="form-label">Weakness</label>
     <input type="text" id="weakness" name="weakness" class="form-control" required>
     <label for="cars">Affiliation:</label>
-    <select class="form-select" name="{{squad_id}}" aria-label="Squad">
+    <select class="form-select" name="squad_id" aria-label="Squad">
         {{#if squads}}
             {{#each squads}}
                 <option value={{id}}>{{name}}</option>
