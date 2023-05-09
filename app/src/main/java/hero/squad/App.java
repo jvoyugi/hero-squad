@@ -91,7 +91,6 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         get("/hero", (req, res) -> {
-
             Map<String, Object> model = new HashMap<>();
             List<Hero> heroes = heroDAO.getAll();
             List<Squad> squads = squadDAO.getAll();
@@ -106,11 +105,13 @@ public class App {
         get("/hero/:id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params("id"));
+            List<Squad> squads = squadDAO.getAll();
             Hero hero = heroDAO.findById(id);
             model.put("url", "/hero/" + id);
             model.put("title", hero.getName());
             model.put("action", "Update");
             model.put("hero", hero);
+            model.put("squads", squads);
             return new ModelAndView(model, "hero.hbs");
         }, new HandlebarsTemplateEngine());
 
