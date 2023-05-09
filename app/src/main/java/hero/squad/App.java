@@ -22,12 +22,12 @@ public class App {
     private static final String databaseUrl = System.getenv("JDBC_DATABASE_URL");
     private static final String databaseUsername = System.getenv("JDBC_DATABASE_USERNAME");
     private static final String databasePassword = System.getenv("JDBC_DATABASE_PASSWORD");
+    private static final String port = System.getenv("PORT");
 
     public static void main(String[] args) {
-        Sql2o sql2o = new Sql2o(databaseUrl,databaseUsername,databasePassword);
+        Sql2o sql2o = new Sql2o(databaseUrl, databaseUsername, databasePassword);
         Sql2oHeroDAO heroDAO = new Sql2oHeroDAO(sql2o);
         Sql2oSquadDAO squadDAO = new Sql2oSquadDAO(sql2o);
-        String port = System.getenv("PORT");
         port(port == null ? 8000 : Integer.parseInt(port));
 
         get("/", (req, res) -> {
@@ -38,7 +38,6 @@ public class App {
             model.put("action", "Register");
             model.put("title", "Squads");
             model.put("squads", squads);
-
             return new ModelAndView(model, "squads.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -95,12 +94,12 @@ public class App {
 
             Map<String, Object> model = new HashMap<>();
             List<Hero> heroes = heroDAO.getAll();
-//            List<Squad> squads = squadDAO.getAll();
+            List<Squad> squads = squadDAO.getAll();
             model.put("url", "/hero");
             model.put("action", "Register");
             model.put("title", "Heroes");
             model.put("heroes", heroes);
-//            model.put("squads", squads);
+            model.put("squads", squads);
             return new ModelAndView(model, "heroes.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -122,7 +121,7 @@ public class App {
             hero.setAge(Integer.parseInt(req.queryParams("age")));
             hero.setSpecialPower(req.queryParams("special_power"));
             hero.setWeakness(req.queryParams("weakness"));
-            hero.setSquadId(squadId==null ? null : Integer.parseInt(squadId));
+            hero.setSquadId(squadId == null ? null : Integer.parseInt(squadId));
             hero.setName(req.queryParams("name"));
             heroDAO.update(hero);
             res.redirect("/hero/" + id);
@@ -142,7 +141,7 @@ public class App {
             String specialPower = req.queryParams("special_power");
             String weakness = req.queryParams("weakness");
             String squadId = req.queryParams("squad_id");
-            Hero newHero = new Hero(name, age, specialPower, weakness, squadId==null ? null : Integer.parseInt(squadId));
+            Hero newHero = new Hero(name, age, specialPower, weakness, squadId == null ? null : Integer.parseInt(squadId));
             heroDAO.add(newHero);
             res.redirect("/hero");
             return null;

@@ -49,8 +49,6 @@ public class Sql2oHeroDAO implements HeroDAO {
         }
     }
 
-
-
     @Override
     public Hero findById(int id) {
         try (Connection con = sql2o.open()) {
@@ -82,5 +80,6 @@ public class Sql2oHeroDAO implements HeroDAO {
                     .addColumnMapping("special_power", "specialPower")
                     .addColumnMapping("squad_id", "squadId")
                     .executeAndFetch(Hero.class);
-        }    }
+        }
+    }
 }
