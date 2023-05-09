@@ -7,5 +7,12 @@
     <input type="text" id="special_power" name="special_power" class="form-control" required>
     <label for="weakness" class="form-label">Weakness</label>
     <input type="text" id="weakness" name="weakness" class="form-control" required>
+    <label for="cars">Affiliation:</label>
+    <select class="form-select" aria-label="Squad">
+    {{#with squads}}
+            <option value={{id}}>{{name}}</option>
+    {{/with}}
+    </select>
+
 {{/partial}}
 {{> hero_modal.hbs}}
