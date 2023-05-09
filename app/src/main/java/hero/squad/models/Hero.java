@@ -7,9 +7,9 @@ public class Hero {
     String specialPower;
     String weakness;
     Integer id;
-    String squadId;
+    Integer squadId;
 
-    public Hero(String name, Integer age, String specialPower, String weakness, String squadId) {
+    public Hero(String name, Integer age, String specialPower, String weakness, Integer squadId) {
         this.name = name;
         this.age = age;
         this.specialPower = specialPower;
@@ -57,11 +57,11 @@ public class Hero {
         this.weakness = weakness;
     }
 
-    public String getSquadId() {
+    public Integer getSquadId() {
         return squadId;
     }
 
-    public void setSquadId(String squadId) {
+    public void setSquadId(Integer squadId) {
         this.squadId = squadId;
     }
 }
